@@ -1,0 +1,19 @@
+{
+  "name": "benjamin-kromer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/benjamin-kromer/stunning-potato.git"
+  },
+  "author": "Benjamin Kromer",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/benjamin-kromer/stunning-potato/issues"
+  },
+  "homepage": "https://github.com/benjamin-kromer/stunning-potato#readme"
+}
