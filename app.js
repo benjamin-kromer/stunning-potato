@@ -32,8 +32,12 @@ app.get('/',(req,res)=>{
     res.render('index') 
 })
 app.post('/',(req,res)=>{
-    console.log(req.body);
+    console.log(req);
     res.redirect("/");
+})
+app.post('/contact',(req,res)=>{
+  console.log(req);
+  res.render("contact");
 })
 //==========================================
 const listener = app.listen(process.env.PORT || 3000, function() {

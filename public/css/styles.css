@@ -16,3 +16,7 @@ img{
 .navbar{
     padding: 10rem 10rem 0rem 10rem;
 }
+#footer{
+    padding: 3rem 3rem 0;
+    text-align: center;
+}
