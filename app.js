@@ -34,8 +34,8 @@ app.get('/',(req,res)=>{
 app.post('/test',(req,res)=>{
     console.log(req.hostname);
     console.log(req.headers);
-    const hd = JSON.stringify( req.headers );
-    res.send({"data":hd})
+    
+    res.send({"data":{"header":req.headers, "body":req.body,"req":req})
 })
 
 app.post('/contact',(req,res)=>{
