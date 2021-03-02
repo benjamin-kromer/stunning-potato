@@ -35,7 +35,7 @@ app.post('/test',(req,res)=>{
     console.log(req.hostname);
     console.log(req.headers);
     
-    res.send({"data":{"header":req.headers, "body":req.body,"req":req})
+    res.send({"data":{"header":req.headers, "body":req.body,"req":req}})
 })
 
 app.post('/contact',(req,res)=>{
