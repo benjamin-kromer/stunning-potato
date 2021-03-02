@@ -31,12 +31,15 @@ app.use(bodyParser.json())
 app.get('/',(req,res)=>{
     res.render('index') 
 })
-app.post('/',(req,res)=>{
-    console.log(req);
-    res.redirect("/");
+app.post('/test',(req,res)=>{
+    console.log(req.hostname);
+    console.log(req.headers);
+    const hd = JSON.stringify( req.headers );
+    res.send({"data":hd})
 })
+
 app.post('/contact',(req,res)=>{
-  console.log(req);
+  console.log(req.body);
   res.render("contact");
 })
 //==========================================
@@ -45,9 +48,28 @@ const listener = app.listen(process.env.PORT || 3000, function() {
   });
 //==========================================
 
+  //url = "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=";
 
-//==========================================
-//          FUNCTIONS
-//==========================================
 
-  //==========================================
+
+/* getData().then((res)=>{  
+   /*  const randInt = Math.floor(Math.random()*res.data.photos.length);
+    console.log(randInt) */
+/*     console.log(res.data)
+    img.src = res.data.url;
+    textOutput.innerText = res.data.explanation;
+    title.innerText = `NASA APOD - Picture of the Day - ${res.data.date}` */
+
+   /*  console.log( res.data.photos[randInt] )
+    const data = res.data.photos[randInt];
+    textOutput.innerText =  data.earth_date;
+    img.src =  data.img_src */
+//})  
+
+async function getNasaData(){
+    url = "https://api.nasa.gov/planetary/apod?api_key=";
+    nasa_APIkey = "4SbNxnRamTklkbyrTDTxVP3TutMdM1PnUDAlBwyC"  
+    const res = await axios.get(url+nasa_APIkey, headers={'Content-Type':'application/json',"Accept":"application/json"});
+    return res.data
+}
+//console.log( getNasaData() )

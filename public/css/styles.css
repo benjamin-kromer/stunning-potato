@@ -20,3 +20,8 @@ img{
     padding: 3rem 3rem 0;
     text-align: center;
 }
+
+.btn {
+    background-color: black;
+    border: 0em;
+}
