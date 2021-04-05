@@ -70,7 +70,7 @@ const listener = app.listen(process.env.PORT || 3000, function() {
 
 async function getRandomNasaImage(){
     url = "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=";
-    nasa_APIkey = "4SbNxnRamTklkbyrTDTxVP3TutMdM1PnUDAlBwyC"  
+    nasa_APIkey = process.env.NASA_API_KEY;
     const res = await axios.get(url+nasa_APIkey, headers={'Content-Type':'application/json',"Accept":"application/json"});
     return res.data
 }
