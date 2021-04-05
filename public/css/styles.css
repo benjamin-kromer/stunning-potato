@@ -4,13 +4,16 @@ body {
 }
 
 .main {
-    padding: 0rem 10rem 0rem 10rem;
+    padding: 5rem 10rem 0rem 11rem;
 }
 
-img{
-    width:20%;
-    height:20%;
-    float: right;
+
+.social-icon{
+    width: 25px;
+    height:25px;
+    text-align: center;
+    margin: 0px 5px 0px 5px
+
 }
 
 .navbar{
@@ -24,8 +27,48 @@ img{
 .btn {
     background-color: black;
     border: 0em;
+    padding:
 }
 .state{
     text-align: center;
     padding: 8rem;
+}
+
+/* TYPEWRITER */
+.line-2{
+    visibility:hidden;
+    text-align: left;
+}
+
+/* Global */
+html{
+  min-height: 100%;
+  overflow: hidden;
+}
+body{
+  height: calc(100vh - 8em);
+  padding: 4em;
+}
+.line-1{
+    width: 24em;
+    border-right: 2px solid rgba(255,255,255,.75);
+    font-size: 180%;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    transform: translateY(-50%);    
+}
+
+/* Animation */
+.anim-typewriter{
+  animation: typewriter 4s steps(31) 1s 1 normal both,
+             blinkTextCursor 500ms steps(31) infinite normal;
+}
+@keyframes typewriter{
+  from{width: 0;}
+  to{width: 27rem;}
+}
+@keyframes blinkTextCursor{
+  from{border-right-color: rgba(255,255,255,.75);}
+  to{border-right-color: transparent;}
 }
