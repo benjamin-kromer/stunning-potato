@@ -4,9 +4,17 @@ body {
 }
 
 .main {
-    padding: 5rem 10rem 0rem 11rem;
+    padding: 15rem 30rem 0rem 30rem;
 }
-
+.card-img-top{
+    width:25%;
+}
+.card{
+    color: black;
+    background-color: darkgrey;
+    width : 420px;
+    height: 210px;
+}
 
 .social-icon{
     width: 25px;
@@ -17,10 +25,25 @@ body {
 }
 
 .navbar{
-    padding: 10rem 10rem 0rem 10rem;
+    padding: 10rem 30rem 0rem 30rem;
+    overflow: hidden; 
+    background-color: rgb(0, 0, 0);
+    display: block;
+    z-index: 99;
+}
+
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    
+  }
+  
+#skills{
+    padding-top: 20rem;
 }
 #footer{
-    padding: 3rem 3rem 0;
+    padding: 10rem 3rem 10rem;
     text-align: center;
 }
 
@@ -28,18 +51,9 @@ body {
     background-color: black;
     border: 0em;
 }
-.state{
-    text-align: center;
-    padding: 8rem;
-}
+
 
 /* TYPEWRITER */
-.line-2{
-    visibility:hidden;
-    text-align: left;
-}
-
-
 .line-1{
     width: 24em;
     border-right: 2px solid rgba(255,255,255,.75);
@@ -48,6 +62,11 @@ body {
     white-space: nowrap;
     overflow: hidden;
     transform: translateY(-50%);    
+   
+}
+.line-2{
+    visibility:hidden;
+    text-align: left;
 }
 
 /* Animation */
