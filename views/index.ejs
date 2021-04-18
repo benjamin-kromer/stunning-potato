@@ -10,7 +10,13 @@
   <div id="navbar" class="navbar">
   <ul class="nav">
     <li class="nav-item">
-      <form method="POST" action="/"><button class="btn btn-lg btn-dark">HOME</button></form>
+      <a href="#introduction"><button class="btn btn-lg btn-dark">HOME</button></a>
+    </li>
+    <li class="nav-item">
+      <a href="#skills"><button class="btn btn-lg btn-dark">SKILLS</button></a>
+    </li>
+    <li class="nav-item">
+      <a href="#hobbies"><button class="btn btn-lg btn-dark">HOBBIES</button></a>
     </li>
     <li class="nav-item">
       <form method="POST" action="/contact"><button class="btn btn-lg btn-dark">CONTACT</button></form>
@@ -22,7 +28,7 @@
     <div class="main container-fluid">
       <section id="introduction">
       <p class="line-1 anim-typewriter">I'am a Self-Thought Programmer.</p>
-      <p class="line-2">Today I took steps on my way to becoming a Full Stack Web-Developer.</p>
+      <p class="line-2">Today I took <%= steps_count %> steps on my way to becoming a Full Stack Web-Developer.</p>
     </section>
       <section id="skills">
         <p class="pargraph-headlines">My Skillset</p>
@@ -31,7 +37,7 @@
             <div class="card">
               <div class="card-body">
                 <h5 class="card-title">Python</h5>
-                <p class="card-text">Python was the first Programming Language I have learned.<br>The clean and simple syntax of this language made it easy to understand the more complex paradigms of Programming.</p>
+                <p class="card-text">Python was the first Programming Language I have learned. The clean and simple syntax of this language made it easy to understand the more complex paradigms of Programming.</p>
                 <a href="#" class="btn btn-primary">Read more</a>
               </div>
             </div>

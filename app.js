@@ -5,6 +5,8 @@ require('dotenv').config();
 const ejs = require('ejs');
 const express = require('express');
 const axios = require('axios');
+const mongoose = require('mongoose');
+var findOrCreate = require('mongoose-findorcreate');
 //==========================================
 
 //==========================================
@@ -24,10 +26,69 @@ app.use(express.static("public"));
 
 
 //==========================================
+//           DATABASE CONNECTION
+//==========================================
+const url = "mongodb+srv://" + process.env.MDBUSR+":"+process.env.MDBPW + "@" + process.env.MDBCLUSTER + ".mongodb.net/" +process.env.MDBNAME;
+mongoose.connect(url, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false
+  })
+  .then(() => {
+    console.log("Connected to remote DB!")
+  })
+  .catch((err) => {
+    console.log("An Error occured logging after this: ");
+    console.log(err);
+  });
+mongoose.set('useCreateIndex', true);
+//==========================================
+
+
+//==========================================
+//        MONGOOSE SCHEMAS
+//==========================================
+const stepsCountSchema = new mongoose.Schema({
+  name: String,
+  steps: String
+});
+//==========================================
+
+
+//==========================================
+//          SCHEMA PLUGINS
+//==========================================
+stepsCountSchema.plugin(findOrCreate);
+//==========================================
+
+
+//==========================================
+//          MONGOOSE MODELS
+//==========================================
+const Steps = new mongoose.model('Steps',stepsCountSchema);
+//==========================================
+
+//==========================================
 //               ROUTES
 //==========================================
 app.get('/',(req,res)=>{
-    res.render('index'); 
+  console.log("First route.")
+  Steps.find({name:"Steps"}, (err, foundSteps) => {
+    if (err) {
+      console.log(err);
+      res.render('index',{
+        steps_count: ""
+      })
+    } else {
+      const stepscount = foundSteps[0]['steps'];
+      console.log(stepscount);
+      console.log(typeof stepscount);
+      res.render('index',{
+        steps_count:stepscount
+      })
+    }
+  })
+    
 })
 app.post('/',(req,res)=>{
     res.redirect('/');
@@ -40,6 +101,28 @@ app.get('/contact',(req,res)=>{
 })
 app.post('/contact',(req,res)=>{
   res.render("contact");
+})
+app.post('/appleHealthData',(req,res)=>{
+  if (req.headers.authorization === "Bearer "+process.env.WHSECRET){ 
+    res.sendStatus(200).end();
+    const appleHealthData = req.body;
+    const steps = appleHealthData.data.metrics[10].data[0].qty;
+    Steps.findOneAndUpdate({
+      'name': "Steps"
+    }, {
+      steps:steps
+    }, {
+      upsert: true
+    },
+    (err, order) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(`Successfully Upsert Steps to ${steps}!`);
+      }
+    })}else{res.sendStatus(403).end()}
+ 
+
 })
 //==========================================
 const listener = app.listen(process.env.PORT || 3000, function() {
