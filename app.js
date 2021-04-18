@@ -72,7 +72,7 @@ const Steps = new mongoose.model('Steps',stepsCountSchema);
 //               ROUTES
 //==========================================
 app.get('/',(req,res)=>{
-  console.log("First route.")
+  
   Steps.find({name:"Steps"}, (err, foundSteps) => {
     if (err) {
       console.log(err);
@@ -80,11 +80,9 @@ app.get('/',(req,res)=>{
         steps_count: ""
       })
     } else {
-      const stepscount = foundSteps[0]['steps'];
-      console.log(stepscount);
-      console.log(typeof stepscount);
+  
       res.render('index',{
-        steps_count:stepscount
+        steps_count:foundSteps[0]['steps']
       })
     }
   })
