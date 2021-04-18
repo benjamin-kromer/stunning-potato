@@ -82,7 +82,7 @@ app.get('/',(req,res)=>{
     } else {
   
       res.render('index',{
-        steps_count:foundSteps[0]['steps']
+        steps_count:String(Math.round( foundSteps[0]['steps']))
       })
     }
   })
@@ -104,7 +104,7 @@ app.post('/appleHealthData',(req,res)=>{
   if (req.headers.authorization === "Bearer "+process.env.WHSECRET){ 
     res.sendStatus(200).end();
     const appleHealthData = req.body;
-    const steps = appleHealthData.data.metrics[10].data[0].qty;
+    const steps = String(Math.round(appleHealthData.data.metrics[10].data[0].qty));
     Steps.findOneAndUpdate({
       'name': "Steps"
     }, {
