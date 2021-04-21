@@ -75,14 +75,15 @@ app.get('/',(req,res)=>{
   
   Steps.find({name:"Steps"}, (err, foundSteps) => {
     if (err) {
-      console.log(err);
+      console.log(`Error on Route / finding steps: ${err}`);
       res.render('index',{
         steps_count: ""
       })
     } else {
-  
+      const s = String(Math.round( foundSteps[0]['steps']));
+      console.log(`Found ${s} steps!`);
       res.render('index',{
-        steps_count:String(Math.round( foundSteps[0]['steps']))
+        steps_count:s
       })
     }
   })
@@ -102,7 +103,7 @@ app.post('/contact',(req,res)=>{
 })
 app.post('/appleHealthData',(req,res)=>{
   if (req.headers.authorization === "Bearer "+process.env.WHSECRET){ 
-    res.sendStatus(200).end();
+    res.sendStatus(200);
     const appleHealthData = req.body;
     const steps = String(Math.round(appleHealthData.data.metrics[10].data[0].qty));
     Steps.findOneAndUpdate({
@@ -112,7 +113,7 @@ app.post('/appleHealthData',(req,res)=>{
     }, {
       upsert: true
     },
-    (err, order) => {
+    (err, steps) => {
       if (err) {
         console.log(err);
       } else {
