@@ -106,7 +106,7 @@ app.post('/appleHealthData',(req,res)=>{
   if (req.headers.authorization === "Bearer "+process.env.WHSECRET){ 
     res.sendStatus(200);
     const appleHealthData = req.body;
-    if (req.body["data"] == undefined ){
+    if (appleHealthData.length < 2 ){
       console.log("data is not defined");
     }else{
     if ( appleHealthData.data.metrics[10].data.length == 0 ){
