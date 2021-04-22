@@ -81,7 +81,7 @@ app.get('/',(req,res)=>{
       })
     } else {
       const s = String(Math.round( foundSteps[0]['steps']));
-      console.log(`Found ${s} steps!`);
+      console.log(`GET Route: Found ${s} steps!`);
       res.render('index',{
         steps_count:s
       })
@@ -107,11 +107,11 @@ app.post('/appleHealthData',(req,res)=>{
     const appleHealthData = req.body;
     const steps = String(Math.round(appleHealthData.data.metrics[10].data[0].qty));
     console.log(steps);
-    console.log(req.body);
+    console.log(JSON.stringify(req.body));
     Steps.findOneAndUpdate({
       'name': "Steps"
     }, {
-      steps:steps
+      steps: steps
     }, {
       upsert: true
     },
