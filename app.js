@@ -106,6 +106,8 @@ app.post('/appleHealthData',(req,res)=>{
     res.sendStatus(200);
     const appleHealthData = req.body;
     const steps = String(Math.round(appleHealthData.data.metrics[10].data[0].qty));
+    console.log(steps);
+    console.log(req.body);
     Steps.findOneAndUpdate({
       'name': "Steps"
     }, {
