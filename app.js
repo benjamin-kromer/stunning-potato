@@ -101,14 +101,15 @@ app.get('/contact',(req,res)=>{
 app.post('/contact',(req,res)=>{
   res.render("contact");
 })
+
 app.post('/appleHealthData',(req,res)=>{
   if (req.headers.authorization === "Bearer "+process.env.WHSECRET){ 
     res.sendStatus(200);
     const appleHealthData = req.body;
-    if ( appleHealthData.data.metrics[10].data.length == 0 ){console.log("received step data is empty! ")}
+    if ( appleHealthData.data.metrics[10].data.length == 0 ){
+      console.log("received step data is empty! ")
+    }
     else{
-
-    
     const steps = String(Math.round(appleHealthData.data.metrics[10].data[0].qty));
     console.log("String(Math.round(appleHealthData.data.metrics[10].data[0].qty)): ");
     console.log(String(Math.round(appleHealthData.data.metrics[10].data[0].qty)));
@@ -127,9 +128,10 @@ app.post('/appleHealthData',(req,res)=>{
       } else {
         console.log(`Successfully Upsert Steps to ${steps["steps"]}!`);
       }
-    })}else{res.sendStatus(403).end()}
-  }
-
+    })}
+  }else{
+      res.sendStatus(403).end()
+    }
 })
 //==========================================
 const listener = app.listen(process.env.PORT || 3000, function() {
