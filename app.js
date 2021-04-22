@@ -106,6 +106,9 @@ app.post('/appleHealthData',(req,res)=>{
   if (req.headers.authorization === "Bearer "+process.env.WHSECRET){ 
     res.sendStatus(200);
     const appleHealthData = req.body;
+    if (req.body["data"] == undefined ){
+      console.log("data is not defined");
+    }else{
     if ( appleHealthData.data.metrics[10].data.length == 0 ){
       console.log("received step data is empty! ")
     }
@@ -128,7 +131,7 @@ app.post('/appleHealthData',(req,res)=>{
       } else {
         console.log(`Successfully Upsert Steps to ${steps["steps"]}!`);
       }
-    })}
+    })}}
   }else{
       res.sendStatus(403).end()
     }
