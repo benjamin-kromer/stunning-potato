@@ -106,7 +106,9 @@ app.post('/appleHealthData',(req,res)=>{
     res.sendStatus(200);
     const appleHealthData = req.body;
     const steps = String(Math.round(appleHealthData.data.metrics[10].data[0].qty));
-    console.log(steps);
+    console.log("String(Math.round(appleHealthData.data.metrics[10].data[0].qty)): ");
+    console.log(String(Math.round(appleHealthData.data.metrics[10].data[0].qty)));
+    console.log("req.body stringified: ")
     console.log(JSON.stringify(req.body));
     Steps.findOneAndUpdate({
       'name': "Steps"
@@ -119,7 +121,7 @@ app.post('/appleHealthData',(req,res)=>{
       if (err) {
         console.log(err);
       } else {
-        console.log(`Successfully Upsert Steps to ${steps}!`);
+        console.log(`Successfully Upsert Steps to ${steps["steps"]}!`);
       }
     })}else{res.sendStatus(403).end()}
  
