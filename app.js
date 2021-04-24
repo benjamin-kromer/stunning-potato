@@ -106,15 +106,14 @@ app.post('/appleHealthData',(req,res)=>{
   if (req.headers.authorization === "Bearer "+process.env.WHSECRET){ 
     res.sendStatus(200);
     const appleHealthData = req.body;
+    
   if( appleHealthData.data ){
     if(appleHealthData.data.metrics){
     try{
       
       const steps = String(Math.round(appleHealthData.data.metrics[10].data[0].qty));
-      console.log("String(Math.round(appleHealthData.data.metrics[10].data[0].qty)): ");
-     console.log(String(Math.round(appleHealthData.data.metrics[10].data[0].qty)));
-    console.log("req.body stringified: ")
-    console.log(JSON.stringify(req.body));
+      console.log(req.body);
+    
     Steps.findOneAndUpdate({
       'name': "Steps"
     }, {
