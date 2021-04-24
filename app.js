@@ -112,7 +112,6 @@ app.post('/appleHealthData',(req,res)=>{
     try{
       
       const steps = String(Math.round(appleHealthData.data.metrics[10].data[0].qty));
-      console.log(appleHealthData.keys());
       console.log(JSON.stringify(req.body));
     
     Steps.findOneAndUpdate({
