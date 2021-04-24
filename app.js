@@ -112,7 +112,8 @@ app.post('/appleHealthData',(req,res)=>{
     try{
       
       const steps = String(Math.round(appleHealthData.data.metrics[10].data[0].qty));
-      console.log(req.body);
+      console.log(appleHealthData.keys());
+      console.log(JSON.stringify(req.body));
     
     Steps.findOneAndUpdate({
       'name': "Steps"
@@ -131,8 +132,6 @@ app.post('/appleHealthData',(req,res)=>{
     }catch(e){
       const errorMsg = e.name + " " + e.message;
       console.log(errorMsg);
-    }finally{
-      console.log("finally")
     }
   }else{
     console.log("No Data property!")
