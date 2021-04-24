@@ -106,16 +106,13 @@ app.post('/appleHealthData',(req,res)=>{
   if (req.headers.authorization === "Bearer "+process.env.WHSECRET){ 
     res.sendStatus(200);
     const appleHealthData = req.body;
-    if (appleHealthData.length < 2 ){
-      console.log("data is not defined");
-    }else{
-    if ( appleHealthData.data.metrics[10].data.length == 0 ){
-      console.log("received step data is empty! ")
-    }
-    else{
-    const steps = String(Math.round(appleHealthData.data.metrics[10].data[0].qty));
-    console.log("String(Math.round(appleHealthData.data.metrics[10].data[0].qty)): ");
-    console.log(String(Math.round(appleHealthData.data.metrics[10].data[0].qty)));
+  if( appleHealthData.data ){
+    if(appleHealthData.data.metrics){
+    try{
+      
+      const steps = String(Math.round(appleHealthData.data.metrics[10].data[0].qty));
+      console.log("String(Math.round(appleHealthData.data.metrics[10].data[0].qty)): ");
+     console.log(String(Math.round(appleHealthData.data.metrics[10].data[0].qty)));
     console.log("req.body stringified: ")
     console.log(JSON.stringify(req.body));
     Steps.findOneAndUpdate({
@@ -131,11 +128,21 @@ app.post('/appleHealthData',(req,res)=>{
       } else {
         console.log(`Successfully Upsert Steps to ${steps["steps"]}!`);
       }
-    })}}
-  }else{
-      res.sendStatus(403).end()
+    })
+    }catch(e){
+      const errorMsg = e.name + " " + e.message;
+      console.log(errorMsg);
+    }finally{
+      console.log("finally")
     }
-})
+  }else{
+    console.log("No Data property!")
+  }}else{
+    console.log("No Data.metrics property!")
+  }
+   }else{
+    res.sendStatus(403);
+  }})
 //==========================================
 const listener = app.listen(process.env.PORT || 3000, function() {
     console.log("Server started on port "+listener.address().port);
