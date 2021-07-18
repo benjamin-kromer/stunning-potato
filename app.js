@@ -120,9 +120,9 @@ app.post('/apis',(req,res)=>{
     res.render('apis',{randomImage:"",statusText:requestDate,imgCollection:pictures,imgNr:randInt})
   })
 })
-app.get('/test',(req,res)=>{
-    res.send( getRandomNasaImage() );
-})
+app.get('/3dp',(req,res)=>{
+  res.render('3dp');
+});
 app.get('/contact',(req,res)=>{
   res.render('contact');
 })

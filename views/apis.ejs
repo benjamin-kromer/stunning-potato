@@ -21,8 +21,8 @@
     <div class="main container-fluid">
         <h3>NASA Mars Rover Photos API</h3>
         <form  action="/apis" method="post">
-            <input type="date" name="requestDate">
-            <button class="" type="submit">get nasa pic</button>
+            <input type="date" name="requestDate" required>
+            <button class="" type="submit">Load mars rover photos of that date</button>
         </form>
 
         <% if ( randomImage) { %>
@@ -49,7 +49,7 @@
         <% } %>
        $( document ).ready(function() {
             
-            $('#list').on('click',()=>{
+            $('#list').on('change',()=>{
                 picNo = list.selectedIndex;
                 console.log(list.selectedIndex);
                 nasaImage.src = pictures[picNo];
@@ -68,6 +68,7 @@
        });
       </script>
         <p> visit <a href="https://api.nasa.gov/" target="_blank">https://api.nasa.gov/</a> to see the documentation.</p>
+        <hr>
 </div>
   <%- include('partials/footer') %>
 </body>
