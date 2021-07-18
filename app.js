@@ -95,9 +95,6 @@ app.get('/',(req,res)=>{
 app.get('/apis',(req,res)=>{
   res.render('apis',{randomImage:"",statusText:"set a date and click the button!",imgCollection:"",imgNr:""})
 })
-app.post('/apiSection',(req,res)=>{
-  res.redirect('apis',{randomImage:"",statusText:"set a date and click the button!",imgCollection:"",imgNr:""});
-})
 app.post('/apis',(req,res)=>{
   console.log(req.body.requestDate);
   const requestDate = req.body.requestDate;
@@ -122,9 +119,6 @@ app.post('/apis',(req,res)=>{
     console.log(error);
     res.render('apis',{randomImage:"",statusText:requestDate,imgCollection:pictures,imgNr:randInt})
   })
-})
-app.post('/',(req,res)=>{
-    res.redirect('/');
 })
 app.get('/test',(req,res)=>{
     res.send( getRandomNasaImage() );
