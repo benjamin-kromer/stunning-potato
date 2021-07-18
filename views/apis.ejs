@@ -1,0 +1,73 @@
+
+ <head>
+    <meta charset="utf-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.6.0/umd/popper.min.js"></script>
+    <link rel="icon" href="img/favicon/bk.ico">
+    <link rel="stylesheet" href="css/styles.css">
+    <div id="navbar" class="navbar">
+    <ul class="nav">
+      <li class="nav-item">
+        <form method="GET" action="/"><button class="btn btn-lg btn-dark">HOME</button></form>
+      </li>
+      <li class="nav-item">
+        <form method="POST" action="/contact"><button class="btn btn-lg btn-dark">CONTACT</button></form>
+      </li>
+    </ul>
+  </div>
+  </head>
+  <body>  
+    <div class="main container-fluid">
+        <h3>NASA Mars Rover Photos API</h3>
+        <form  action="/apis" method="post">
+            <input type="date" name="requestDate">
+            <button class="" type="submit">get nasa pic</button>
+        </form>
+
+        <% if ( randomImage) { %>
+          <img id="nasaImage" src="<%= randomImage %>" alt="">
+        <% } %>
+        <br><button id="prev">prev</button> | <button id="next">next</button>
+        
+     
+      <select id="list"></select>
+      <p><%=statusText%></p><p id="actPicNo"></p>
+      <script>
+      let picNo = Number('<%= imgNr %>');
+      const pictures = <%- JSON.stringify(imgCollection) %>;
+      for (pic in pictures){
+          let opt = document.createElement('option');
+          opt.value = pic;
+          opt.innerHTML = pic;
+          list.appendChild(opt);
+      }
+      const imgField = document.getElementById('nasaImage');
+      const actPic = document.getElementById('actPicNo');
+      <% if ( imgNr) { %>
+          actPic.innerText = "Photo Nr.: "+String(<%= imgNr  %>);
+        <% } %>
+       $( document ).ready(function() {
+            
+            $('#list').on('click',()=>{
+                picNo = list.selectedIndex;
+                console.log(list.selectedIndex);
+                nasaImage.src = pictures[picNo];
+                actPic.innerText = "Photo Nr.: "+String( picNo );
+            });
+            $('#next').on('click', ()=>{
+                picNo = picNo + 1;
+                nasaImage.src = pictures[picNo];
+                actPic.innerText = "Photo Nr.: "+String( picNo );
+            });
+            $('#prev').on('click',()=>{
+                picNo = picNo - 1;
+                nasaImage.src = pictures[picNo];
+                actPic.innerText = "Photo Nr.: "+String( picNo );
+            });
+       });
+      </script>
+        <p> visit <a href="https://api.nasa.gov/" target="_blank">https://api.nasa.gov/</a> to see the documentation.</p>
+</div>
+  <%- include('partials/footer') %>
+</body>

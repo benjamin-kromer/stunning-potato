@@ -22,6 +22,9 @@ const app = express();
 app.set('view engine', 'ejs');
 app.use(express.json());
 app.use(express.static("public"));
+app.use(express.urlencoded({
+  extended: true
+}));
 //==========================================
 
 
@@ -89,6 +92,37 @@ app.get('/',(req,res)=>{
   })
     
 })
+app.get('/apis',(req,res)=>{
+  res.render('apis',{randomImage:"",statusText:"set a date and click the button!",imgCollection:"",imgNr:""})
+})
+app.post('/apiSection',(req,res)=>{
+  res.redirect('apis',{randomImage:"",statusText:"set a date and click the button!",imgCollection:"",imgNr:""});
+})
+app.post('/apis',(req,res)=>{
+  console.log(req.body.requestDate);
+  const requestDate = req.body.requestDate;
+  const config = {
+    'url': `https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=${requestDate}&api_key=${process.env.NASA_API_KEY}`,
+    'method': 'get',
+    'headers':{'Accept':'application/json'}
+  };
+  axios(config).then((response)=>{
+    const pictures = response.data.photos;
+    const picturesArray =[];
+    for (pic in pictures){
+      picturesArray.push(pictures[pic].img_src);
+    }
+    const randInt = Math.floor(Math.random()*pictures.length);
+    console.log("random number: ",randInt);
+    console.log("length of picture array: ", pictures.length);
+    const randomImg = pictures[randInt].img_src;
+    console.log("url of the randomImage: ",randomImg);
+    res.render('apis',{randomImage:randomImg,statusText:requestDate,imgCollection:picturesArray,imgNr:randInt});
+  }).catch((error)=>{
+    console.log(error);
+    res.render('apis',{randomImage:"",statusText:requestDate,imgCollection:pictures,imgNr:randInt})
+  })
+})
 app.post('/',(req,res)=>{
     res.redirect('/');
 })
@@ -144,34 +178,3 @@ app.post('/appleHealthData',(req,res)=>{
 const listener = app.listen(process.env.PORT || 3000, function() {
     console.log("Server started on port "+listener.address().port);
   });
-//==========================================
-
-  //url = "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=";
-
-
-
-/* getData().then((res)=>{  
-   /*  const randInt = Math.floor(Math.random()*res.data.photos.length);
-    console.log(randInt) */
-/*     console.log(res.data)
-    img.src = res.data.url;
-    textOutput.innerText = res.data.explanation;
-    title.innerText = `NASA APOD - Picture of the Day - ${res.data.date}` */
-
-   /*  console.log( res.data.photos[randInt] )
-    const data = res.data.photos[randInt];
-    textOutput.innerText =  data.earth_date;
-    img.src =  data.img_src */
-//})  
-
-async function getRandomNasaImage(){
-    url = "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=";
-    nasa_APIkey = process.env.NASA_API_KEY;
-    const res = await axios.get(url+nasa_APIkey, headers={'Content-Type':'application/json',"Accept":"application/json"});
-    return res.data
-}
-//console.log( getNasaData() )
-
-
-//URL = "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key="
-//img = re['photos'][0]['img_src']

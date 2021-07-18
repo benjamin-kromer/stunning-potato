@@ -1,4 +1,4 @@
-console.log("script loaded")
+//console.log("script loaded")
 const line1 = document.querySelector('p.line-1');
 const line2 = document.querySelector('p.line-2');
 
@@ -9,9 +9,9 @@ setTimeout(()=>{
 },5000)
 
 $( document ).ready(function() {
-    console.log( "jQuery loaded!" );
+    //console.log( "jQuery loaded!" );
 });
 
 $('#facebook-icon').on("click", function () {
-    console.log("mouse clicked")
+    //console.log("mouse clicked")
 });

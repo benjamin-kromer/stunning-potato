@@ -16,7 +16,10 @@ body {
     width : 420px;
     height: 210px;
 }
-
+#nasaImage{
+    max-width: 100%;
+    width: 600px; 
+}
 .social-icon{
     width: 25px;
     height:25px;
