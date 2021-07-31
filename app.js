@@ -97,15 +97,17 @@ app.get('/apis',(req,res)=>{
 })
 app.post('/apis',(req,res)=>{
   console.log(req.body.requestDate);
+ 
   const requestDate = req.body.requestDate;
   const config = {
     'url': `https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=${requestDate}&api_key=${process.env.NASA_API_KEY}`,
-    'method': 'get',
-    'headers':{'Accept':'application/json'}
+    'method': 'get'
   };
   axios(config).then((response)=>{
-    const pictures = response.data.photos;
-    const picturesArray =[];
+    console.log((response.data.photos ? response.data.photos: []));
+    const pictures = (response.data.photos ? response.data.photos: []);
+    const picturesArray = [];
+    if (pictures.length !== 0){
     for (pic in pictures){
       picturesArray.push(pictures[pic].img_src);
     }
@@ -115,6 +117,9 @@ app.post('/apis',(req,res)=>{
     const randomImg = pictures[randInt].img_src;
     console.log("url of the randomImage: ",randomImg);
     res.render('apis',{randomImage:randomImg,statusText:requestDate,imgCollection:picturesArray,imgNr:randInt});
+  }else{
+    res.render('apis',{randomImage:"",statusText:`Sorry no pictures found for ${requestDate}!`,imgCollection:picturesArray,imgNr:""});
+  }
   }).catch((error)=>{
     console.log(error);
     res.render('apis',{randomImage:"",statusText:requestDate,imgCollection:pictures,imgNr:randInt})
